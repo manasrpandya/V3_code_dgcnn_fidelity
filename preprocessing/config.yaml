@@ -1,0 +1,68 @@
+# IEMOCAP Preprocessing Configuration
+# Replicates "Fidelity-Aware Dynamic Graph CNN for Multimodal Emotion Recognition" paper
+
+# Dataset paths
+dataset:
+  base_path: "./IEMOCAP_full_release/IEMOCAP_full_release"
+  output_path: "./processed_chunks"
+
+# Preprocessing parameters
+preprocessing:
+  # Temporal sequence length (number of frames per utterance)
+  sequence_length: 20
+  
+  # Audio parameters
+  audio:
+    sample_rate: 16000
+    n_mfcc: 40
+    hop_length: 512
+    n_fft: 2048
+    normalize: true
+  
+  # Video parameters
+  video:
+    target_fps: 25
+    face_detection: "haarcascade"
+    cascade_file: "haarcascade_frontalface_default.xml"
+    face_size: [224, 224]
+    resnet_weights_url: "https://download.pytorch.org/models/resnet50-0676ba61.pth"
+  
+  # Text parameters
+  text:
+    model_name: "bert-base-uncased"
+    max_length: 512
+    embedding_dim: 768
+  
+  # Label mapping
+  labels:
+    target_emotions: ["angry", "happy", "sad", "neutral"]
+    # Map IEMOCAP labels to target emotions; ignore others
+    # excited → happy (paper), keep only four classes
+    emotion_mapping:
+      exc: "happy"
+      excited: "happy"
+      hap: "happy"
+      happy: "happy"
+      ang: "angry"
+      angry: "angry"
+      sad: "sad"
+      neu: "neutral"
+      neutral: "neutral"
+      oth: null
+      xxx: null
+
+# Processing parameters
+processing:
+  batch_size: 16
+  num_workers: 4
+  gpu_memory_threshold: 0.8  # Clear cache when GPU memory usage exceeds this
+  verbose: true
+
+# Output format
+output:
+  format: "npz"  # numpy compressed format
+  features:
+    - "text"
+    - "audio" 
+    - "video"
+    - "label"
