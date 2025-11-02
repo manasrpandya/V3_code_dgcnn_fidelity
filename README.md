@@ -158,19 +158,4 @@ Verification hooks (concise):
 - Prints `projection layers output dim = 256` during model init.
 - Prints `cross-validation fold i/5 starting` for each fold.
 
-## Citation
 
-If you use this repository, please cite the original paper:
-
-```
-@inproceedings{fidelity_dgcnn_2024,
-  title   = {Fidelity-Aware Dynamic Graph CNN for Multimodal Emotion Recognition},
-  author  = {Authors},
-  booktitle = {Venue},
-  year    = {2024}
-}
-```
-
-## License
-
-This repository is provided for research purposes. Add your license of choice here.
